@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equip="X-UA-Compatible" content="IE=edge">
+    <title>VueJS</title>
+    <link rel="stylesheet" href="">
+    <script src="vue.js"></script>
+</head>
+<body>
+        <div id="app">
+        <input type="text" v-on:input="changeTitle"> 
+          <p>{{ title }}</p>
+        </div>
+<script>
+
+new Vue({ //so here we're creating a new Vue instance
+el: '#app', //this is an element property reserved for VueJS, we're selecting the div id app 
+data: { //data property which is also an object, reserved for VueJS
+ title: 'Hello World!'  
+},
+methods: {
+  changeTitle: function(event) { //will see more of this from tomorrow onwards
+    this.title = event.target.value;
+  }
+}
+}); 
+</script>
+</body>
+</html>

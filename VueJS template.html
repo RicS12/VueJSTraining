@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equip="X-UA-Compatible" content="IE=edge">
+    <title>VueJS Templates</title>
+    <link rel="stylesheet" href="">
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1 v-once>{{ title }}</h1>
+        <p>{{ sayHello() }} - <a v-bind:href="link">Google</a></p> 
+        <hr>
+        <p v-html="finishedLink"></p>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            title: 'Hello World!',
+            link: 'https://www.google.com/',
+            finishedLink: '<a href="https://www.google.com/">Google</a>'
+        },
+        methods: {
+            sayHello: function() {
+                this.title = 'Hello!';
+                return this.title; //Normally this wouldn't workk, but within the VueJS instance, by using "this" we have access to all the properties, methods or whatever inside the instance.
+            }
+        }
+    });
+    //Basically VueJS creates an instance, which creates a template, and based on the template it process the real code so that the HTML works as it should. When inspecting the HTML element Hello World, you don't see the {title}, but instead see <p>Hello World! </p>
+
+    //We output a single property stored in the data field of our VueJS instance
+    //You can perfectly execute a function too
+    //With curly braces, you return somethind that can be parsed into a String
+    //We have access not only to everything stored inside the data property, but also what's stored in the methods.
+    //By using VueJS directives, if you use v-bind:'htmlattribute', you can bind the HTML attribute so that it uses the VueJS template dyncamically.
+    //Directives are instruction you place in your code.
+    //v-binds tells VueJS to bind something to the data which is stored in the VueJS instance.
+    //by using v-once, all the content besides the element will be rendered only once, and will not be updated later on if is updated
+    //v-html directive allows us to pass the name of the property which holds the html code. You have to be careful though when using this as it allows for cross-sites attacks
+
+</script>
