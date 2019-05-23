@@ -1,0 +1,41 @@
+<script src="vue.js"></script>
+
+<div id="app">
+    <!-- <button v-on:click="increase">Click me</button> Commenting this out to practice arguments-->
+    <button v-on:click="increase(2, $event)">Click me</button> 
+    <p>{{ counter }}</p>
+    <p v-on:mousemove="updateCoordinates">Coordinates {{ x }} / {{ y }} - 
+        <!-- <span v-on:mousemove="dummy">DEAD SPOT</span> -->
+        <span v-on:mousemove.stop="">DEAD SPOT</span>
+    </p>
+    <input type="text" v-on:keyup.enter.space="alertMe">
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            counter: 0,
+            x: 0,
+            y: 0
+        },
+        methods: {
+            increase: function(step, event) { //we changed the function to accept arguments, and we pass them directly in the DOM
+                this.counter += step;
+            },
+            updateCoordinates: function(event) { //this event is created automatically upon hovering the mouse in the p DOM element
+                this.x = event.clientX;
+                this.y = event.clientY;
+            }, 
+            // dummy: function(event) {
+            //     event.stopPropagation();
+            // } //commented this out to see the effects of the event modifiers (stop, prevent)
+            alertMe: function() {
+                alert('Alert!');
+            }
+            
+        }
+    });
+
+    //v-on is a VueJS directive which allows us to bind event listeners to our DOM
+</script>
