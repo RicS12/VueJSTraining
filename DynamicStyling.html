@@ -1,0 +1,51 @@
+<script src="vue.js"></script>
+
+<style>
+    .demo{
+        width: 100px;
+        height: 100px;
+        background-color: gray;
+        display: inline-block;
+        margin: 10px;
+    }
+
+    .red{
+        background-color: red;
+    }
+
+    .green{
+        background-color: green;
+    }
+
+    .blue{
+        background-color: blue;
+    }
+</style>
+
+<div id="app">
+    <div class="demo" 
+    @click="attachRed = !attachRed"
+    :class="divClasses"></div>
+    <div class="demo" :class="{red: attachRed}"></div> 
+    <div class="demo" :class="[color, {red: attachRed}]"></div> <!-- Need to review this one-->
+    <hr>
+    <input type="text" v-model="color">
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            attachRed: false, //if this is true, it will attach red and will change color upon clicking, when clicking again, it is the opposite (false), so it detachs the class
+            color: 'green'
+        },
+        computed: {
+            divClasses: function() {
+                return { //This is a JS object which arguments are CSS classes, which in turn also need booleans arguments for :class dynamic bind to work
+                    red: this.attachRed,
+                    blue: !this.attachRed
+                }
+            }
+        }
+    })
+</script>
