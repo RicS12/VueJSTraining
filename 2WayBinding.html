@@ -1,0 +1,17 @@
+<script src="vue.js"></script>
+
+<div id="app">
+    <input type="text" v-model="name">
+    <p>{{ name }}</p>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            name: 'Max'
+        }
+    });
+
+    //v-model tells vuejs to set up 2 way data binding for the input here and then between the quotation marks the name of the property
+</script>

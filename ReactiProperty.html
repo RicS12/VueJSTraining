@@ -1,0 +1,47 @@
+<script src="vue.js"></script>
+
+<div id="app">
+    <button v-on:click="counter++">Increase</button>
+    <button v-on:click="counter--">Decrease</button>
+    <button v-on:click="secondCounter++">Increase Second</button>
+    <p>Counter: {{ counter }} | {{ secondCounter }}</p>
+    <p>Result: {{ result() }} | {{ output }}</p>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            counter: 0,
+            secondCounter: 0
+        },
+        computed: { 
+            output: function() { //these are properties that work like a function, they don't need the parenthesis when using interpolation in the DOM
+                console.log('Computed')
+                return this.counter > 5 ? 'Greater 5' : 'Smaller 5';
+            }
+        },
+        methods: {
+            result: function() {
+                console.log('Method')
+                return this.counter > 5 ? 'Greater 5' : 'Smaller 5';
+            }
+        },
+        watch: {
+            counter: function(value) { //whenever counter changes, run this function
+                let vm = this; //storing Vue instance
+                setTimeout(function() {
+                    vm.counter = 0;
+                }, 2000);
+            }
+        }
+    });
+    //Basically, methods always run and recalculate, but computed properties are smart enough to know when they should or shouldn't run. In the case above, when hitting increase button, it calls both result() and output because they both check for this.counter, but when hitting Increase Second button, only result() is being called because output is smart enough to know that the property that is checking is this.counter, but the one updating is second counter, which means that it doesn't run and this can relief the burden on applications .
+
+    //Known Options fuer Vue instances
+    //el: Connect to DOM
+    //data: Store Data to be used
+    //methods: Methods of the Vue instance
+    //computed: Dependent properties
+    //watch: Execute code upon data changes
+</script>
