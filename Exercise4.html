@@ -17,6 +17,37 @@
     background-color: gray;
     width: 50px !important;
   }
+
+  .blue {
+    background-color: blue;
+  }
+
+  .yellow {
+    background-color: yellow;
+  }
+
+  .green {
+    background-color: green;
+  }
+
+  .float {
+    float: right;
+  }
+
+  .text-color {
+    color: yellow;
+  }
+
+  .visible {
+    width: 100px;
+    height: 50px;
+  }
+
+  .progress-bar {
+    width: 200px;
+    height: 20px;
+    border: 1px solid black;
+  }
   </style>
 
 <div id="exercise">
@@ -26,27 +57,29 @@
     <div id="effect" v-bind:class="effectClasses"></div>
   </div>
   <!-- 2) Create a couple of CSS classes and attach them via the array syntax -->
-  <div>I got no class :(</div>
+  <div :class="[float, 'blue', 'text-color']">Now I got one class :)</div>
   <!-- 3) Let the user enter a class (create some example classes) and attach it -->
   <div>
-    <input type="text">
-    <div></div>
+    <input type="text" v-model="userClass">
+    <!-- <div :class="userClass">Enter class: green, blue and yellow</div> my way-->
+    <div :class="[{visible: true}, userClass]">Enter class: green, blue, yellow</div>
+
   </div>
   <!-- 4) Let the user enter a class and enter true/ false for another class (create some example classes) and attach the classes -->
   <div>
-    <input type="text">
-    <input type="text">
-    <div></div>
+    <input type="text" v-model="userClass">
+    <input type="text" v-model="isVisible">
+    <div :class="[{visible: isVisible}, userClass]">Does this shrink</div>
   </div>
   <!-- 5) Repeat 3) but now with values for styles (instead of class names). Attach the respective styles.  -->
   <div>
-    <input type="text">
-    <div></div>
+    <input type="text" v-model="myStyle.backgroundColor">
+    <div :style="myStyle">This is with width and height, not Css classes, and dynamic color</div>
   </div>
   <!-- 6) Create a simple progress bar with setInterval and style bindings. Start it by hitting the below button. -->
   <div>
-    <button>Start Progress</button>
-    <div></div>
+    <button @click="startProgress">Start Progress</button>
+    <div :class="['progress-bar']" :style="progressBar"></div>
   </div>
 </div>
 
@@ -57,15 +90,37 @@ new Vue({
     effectClasses: {
       highlight: false,
       shrink: true
+    },
+    float: 'float', // I don't understand the purpose of this float
+    userClass: '',
+    isVisible: true,
+    myStyle: {
+      width: '100px',
+      height: '150px',
+      backgroundColor: 'gray'
+    },
+    progressBar: {
+      width: '0px',
+      height: '20px',
+      backgroundColor: 'red'
     }
   },
-  method: {
+  methods: {
     startEffect: function() {
       let vue = this;
       setInterval(function() {
-        vue.effectClasses.highlight = vue.effectClasses.highlight;
-        vue.effectClasses.shrink = vue.effectClasses.shrink;
-      }, 1000)
+
+        vue.effectClasses.shrink = !vue.effectClasses.shrink;
+        vue.effectClasses.highlight = !vue.effectClasses.highlight;
+      }, 1000);
+    },
+    startProgress: function() {
+      let vue = this;
+      let width = 0
+      setInterval(function() {
+        vue.progressBar.width = width + 'px';
+        width += 10;
+      },500)
     }
   }
 })
