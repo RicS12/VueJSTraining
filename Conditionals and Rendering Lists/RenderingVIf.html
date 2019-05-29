@@ -1,0 +1,28 @@
+<script src="vue.js"></script>
+
+<div id="app">
+    <p v-if="show">You can see me! <span>Hello!</span></p>
+    <p v-else>Now you see me</p>
+    <template v-if="show">
+        <h1>Heading</h1>
+        <p>Inside a template</p>
+    </template>
+    <p v-show="show">Do you also see me?</p>
+    <button @click="show = !show">Switch</button>
+</div>
+
+<script>
+new Vue({
+    el: '#app',
+    data: {
+        show: true
+    }
+}); 
+
+//v-if attaches or detaches elements to the dom (also all the nested elements)
+//it doesn't hide them, it completely removes them if you have a false condition, or a condition returns false
+//v-else will refer automatically to the latest v-if in front of it
+//now there is also v-else-if which works as an "else if" block
+//template tag with v-if is a valid option to group multiple elements you want to show, attach or detach to be precise together
+//if you want to hide an element, and not remove it you have the directive v-show 
+</script>
