@@ -1,0 +1,95 @@
+<script src="vue.js"></script>
+<div id="app1">
+    <h1 ref="heading">{{ title }}</h1>
+    <button @click="show" ref="myButton">Show paragraph</button>
+    <p v-if="showParagraph">This is not always visible</p>
+</div>
+
+<div id="app2">
+        <h1>{{ title }}</h1>
+        <button @click="onChange">Change something in Vue 1</button>
+        <!-- Adding the VueJS component -->
+        <!-- <hello></hello>  -->
+    </div>
+
+<div id="app3">
+
+</div>
+
+
+
+<script>
+    //Accessing other VueJS Instances
+    //Vm for vue model
+
+    let data = {
+            title: 'The VueJS Instance',
+            showParagraph: false
+        };
+
+    // Vue.component('hello', {//allows to create new components which can then be reused in other vue instances, the first argument is the selector of the component and the second an object
+    // template: '<h1>Hello!</h1>'    
+    // }); 
+    
+    let vm1 = new Vue({ 
+        // el: '#app1',
+        data: data,
+        methods: {
+            show: function() {
+                this.showParagraph = !this.showParagraph;
+                this.updateTitle('The VueJS Instance (Updated)');
+                // console.log(this.$refs.myButton); you can access the button with $refs
+                this.$refs.myButton.innerText = 'Test';
+            },
+            updateTitle: function(title) {
+                this.title = title;
+            }
+        },
+        computed: {
+            lowercaseTitle: function() {
+                return this.title.toLowerCase();
+            }
+        },
+        watch: {
+            title: function(value) {
+                alert(`Title changed, new value: ${value}`);
+            }
+        }
+    });
+    //Setting the 'el' property outside of the VueJS instance
+    vm1.$mount('#app1'); //basically the same as el: '#app1'
+
+    console.log(vm1.$data === data); //showing that with $ we can also access VueJS instance properties
+    //updating through $refs the inner text of the heading
+    vm1.$refs.heading.innerText = 'Something else'; //this should not overwrite the updateTitle, but is doing so right now, doesn't get the update, but sticks with Something else
+
+    setTimeout( function() {
+        vm1.title = 'Changed by Timer';
+        vm1.show();
+    },3000)
+
+    let vm2 = new Vue({
+        el: '#app2',
+        data: {
+            title: 'The second Instance'
+        },
+        methods: {
+            onChange: function() {
+                vm1.title = "Changed!";
+            }
+        }
+    })
+
+    let vm3 = new Vue({
+        el: 'hello',
+        template: '<h1>Hello!</h1>'
+    })
+
+    // vm3.$mount('#app3'); //this will affiliate the 3rd VueJs Instance with the HTML
+    vm3.$mount() //Create the instance offscreen, another way
+    document.getElementById('app3').appendChild(vm3.$el); //vanilla JavaScript that complements the other way
+
+
+    //With VueJS we can proxy the properties. We can access them outside of the VueJS instance by accessing them through the variables where we stored the instances. We cannot add more properties outside of the instance, oh well, more specifically, we can add them but they won't work and this is really important to understand.
+</script>
+
