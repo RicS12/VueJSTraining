@@ -13,6 +13,7 @@
 
     export default {
         components: {
+            // 'app-user': User // reminder that below syntax works the same as this one
             appUser: User
         }
     }
