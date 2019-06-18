@@ -6,6 +6,7 @@
         </div>
         <hr>
         <div>
+            <!-- This is a default slot, by having no name, it searches for the slot with no name on parent -->
             <slot></slot>
         </div>
     </div>
