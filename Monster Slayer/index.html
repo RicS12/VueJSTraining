@@ -5,6 +5,7 @@
     <script src="https://npmcdn.com/vue/dist/vue.js"></script>
     <link rel="stylesheet" href="css/foundation.min.css">
     <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 </head>
 <body>
 <div id="app">
@@ -49,7 +50,8 @@
         <div class="small-12 columns">
             <ul>
                 <li v-for="turn in turns"
-                    :class="{'player-turn': turn.isPlayer, 'monster-turn': !turn.isPlayer}">
+                    :class="{'player-turn': turn.isPlayer, 'monster-turn': !turn.isPlayer}"
+                    class="animated slideInLeft">
                     {{turn.text}}
                 </li>
             </ul>
@@ -60,3 +62,5 @@
 <script src="app.js"></script>
 </html>
 
+<style>
+</style>

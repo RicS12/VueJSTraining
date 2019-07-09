@@ -163,9 +163,10 @@ import SuccessAlert from './SuccessAlert.vue';
         transition: opacity 1s;
     }
 
-    .fade-leave {
-        /* opacity: 1; */
-    }
+/* opacity: 1; */
+    /* .fade-leave {
+        
+    } */
 
     .fade-leave-active {
         transition: opacity 1s;
@@ -182,9 +183,10 @@ import SuccessAlert from './SuccessAlert.vue';
         transition: opacity .5s;
     }
 
-    .slide-leave {
-        /* no need to add because by default is already set */
-    }
+    
+    /* no need to add because by default is already set */
+    /* .slide-leave {
+    } */
 
     .slide-leave-active {
         animation: slide-out 1s ease-out forwards;
