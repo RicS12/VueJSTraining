@@ -24,6 +24,14 @@ export default {
                         hash: '#data' 
             }
         }
+    },
+    //method where you establish parameters to see if an user is allowerd to enter
+    beforeRouteEnter(to, from, next) {
+        if (true) {
+            next();
+        } else {
+            next(false);
+        }
     }
 }
 </script>
